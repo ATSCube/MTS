@@ -1374,7 +1374,10 @@ section {
 
 @media (max-width: 768px) {
     .nav-toggle {
-        display: flex;
+        display: flex !important;
+        z-index: 10000 !important;
+        position: relative !important;
+        pointer-events: auto !important;
     }
     
     .nav-menu {
@@ -3801,5 +3804,41 @@ section {
     
     .hero-banner-carousel {
         margin-bottom: 40px;
+    }
+}
+
+/* Force nav-toggle to be clickable - emergency fix */
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: flex !important;
+        z-index: 99999 !important;
+        cursor: pointer !important;
+        pointer-events: auto !important;
+        touch-action: manipulation !important;
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+    }
+    
+    .nav-toggle span {
+        pointer-events: none;
+    }
+    
+    /* Ensure logo doesn't overlap */
+    .logo-container {
+        z-index: 100 !important;
+        pointer-events: auto !important;
+    }
+    
+    /* Ensure WhatsApp doesn't overlap */
+    .header-whatsapp {
+        z-index: 100 !important;
+        pointer-events: auto !important;
+    }
+    
+    /* Make sure nav-container grid is correct */
+    .nav-container {
+        display: grid !important;
+        grid-template-columns: auto 1fr auto !important;
+        align-items: center !important;
+        gap: 10px !important;
     }
 }

@@ -1,17 +1,33 @@
-// Navigation Toggle for Mobile - Ensure DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
+// Navigation Toggle for Mobile - Multiple initialization attempts
+function initNavToggle() {
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');
     const navLinks = document.querySelectorAll('.nav-link');
 
+    console.log('Initializing nav toggle...', {navToggle, navMenu, navLinksCount: navLinks.length});
+
     if (navToggle && navMenu) {
-        navToggle.addEventListener('click', (e) => {
+        // Remove any existing listeners
+        const newNavToggle = navToggle.cloneNode(true);
+        navToggle.parentNode.replaceChild(newNavToggle, navToggle);
+        
+        // Add click listener
+        newNavToggle.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
+            console.log('Toggle clicked!');
             navMenu.classList.toggle('active');
-            navToggle.classList.toggle('active');
-            console.log('Nav toggle clicked, menu active:', navMenu.classList.contains('active'));
-        });
+            newNavToggle.classList.toggle('active');
+            console.log('Menu is now:', navMenu.classList.contains('active') ? 'OPEN' : 'CLOSED');
+        }, {passive: false});
+        
+        // Also try touch events for mobile
+        newNavToggle.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            console.log('Toggle touched!');
+            navMenu.classList.toggle('active');
+            newNavToggle.classList.toggle('active');
+        }, {passive: false});
 
         // Close mobile menu when clicking on a link
         navLinks.forEach(link => {
@@ -19,26 +35,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Don't close menu if it's the products dropdown link
                 if (!link.parentElement.classList.contains('nav-dropdown') || window.innerWidth <= 768) {
                     navMenu.classList.remove('active');
-                    if (navToggle) {
-                        navToggle.classList.remove('active');
-                    }
+                    newNavToggle.classList.remove('active');
                 }
             });
         });
 
         // Close mobile menu when clicking outside
         document.addEventListener('click', (e) => {
-            if (navMenu && navToggle) {
-                if (!navMenu.contains(e.target) && !navToggle.contains(e.target) && navMenu.classList.contains('active')) {
+            if (navMenu && newNavToggle) {
+                if (!navMenu.contains(e.target) && !newNavToggle.contains(e.target) && navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
-                    navToggle.classList.remove('active');
+                    newNavToggle.classList.remove('active');
                 }
             }
         });
+        
+        console.log('Nav toggle initialized successfully!');
     } else {
         console.error('Navigation elements not found:', {navToggle, navMenu});
     }
-});
+}
+
+// Try multiple times to ensure it loads
+document.addEventListener('DOMContentLoaded', initNavToggle);
+setTimeout(initNavToggle, 100);
+setTimeout(initNavToggle, 500);
+window.addEventListener('load', initNavToggle);
 
 // Navbar scroll effect
 const navbar = document.getElementById('navbar');
