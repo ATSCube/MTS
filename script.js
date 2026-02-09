@@ -1,66 +1,37 @@
-// Navigation Toggle for Mobile - Multiple initialization attempts
-function initNavToggle() {
-    const navToggle = document.getElementById('navToggle');
-    const navMenu = document.getElementById('navMenu');
-    const navLinks = document.querySelectorAll('.nav-link');
+// Navigation Toggle for Mobile
+const navToggle = document.getElementById('navToggle');
+const navMenu = document.getElementById('navMenu');
+const navLinks = document.querySelectorAll('.nav-link');
 
-    console.log('Initializing nav toggle...', {navToggle, navMenu, navLinksCount: navLinks.length});
-
-    if (navToggle && navMenu) {
-        // Remove any existing listeners
-        const newNavToggle = navToggle.cloneNode(true);
-        navToggle.parentNode.replaceChild(newNavToggle, navToggle);
-        
-        // Add click listener
-        newNavToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('Toggle clicked!');
-            navMenu.classList.toggle('active');
-            newNavToggle.classList.toggle('active');
-            console.log('Menu is now:', navMenu.classList.contains('active') ? 'OPEN' : 'CLOSED');
-        }, {passive: false});
-        
-        // Also try touch events for mobile
-        newNavToggle.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            console.log('Toggle touched!');
-            navMenu.classList.toggle('active');
-            newNavToggle.classList.toggle('active');
-        }, {passive: false});
-
-        // Close mobile menu when clicking on a link
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                // Don't close menu if it's the products dropdown link
-                if (!link.parentElement.classList.contains('nav-dropdown') || window.innerWidth <= 768) {
-                    navMenu.classList.remove('active');
-                    newNavToggle.classList.remove('active');
-                }
-            });
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (navMenu && newNavToggle) {
-                if (!navMenu.contains(e.target) && !newNavToggle.contains(e.target) && navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                    newNavToggle.classList.remove('active');
-                }
-            }
-        });
-        
-        console.log('Nav toggle initialized successfully!');
-    } else {
-        console.error('Navigation elements not found:', {navToggle, navMenu});
-    }
+if (navToggle) {
+    navToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        navToggle.classList.toggle('active');
+    });
 }
 
-// Try multiple times to ensure it loads
-document.addEventListener('DOMContentLoaded', initNavToggle);
-setTimeout(initNavToggle, 100);
-setTimeout(initNavToggle, 500);
-window.addEventListener('load', initNavToggle);
+// Close mobile menu when clicking on a link
+navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        // Don't close menu if it's the products dropdown link
+        if (!link.parentElement.classList.contains('nav-dropdown') || window.innerWidth <= 768) {
+            navMenu.classList.remove('active');
+            if (navToggle) {
+                navToggle.classList.remove('active');
+            }
+        }
+    });
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (navMenu && navToggle) {
+        if (!navMenu.contains(e.target) && !navToggle.contains(e.target) && navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
+            navToggle.classList.remove('active');
+        }
+    }
+});
 
 // Navbar scroll effect
 const navbar = document.getElementById('navbar');
@@ -540,106 +511,4 @@ setTimeout(function() {
 }, 100);
 
 console.log('Spare Parts Gallery script loaded');
-
-
-// ============================================
-// HERO BANNER CAROUSEL
-// ============================================
-var bannerSlideIndex = 1;
-var bannerAutoTimer;
-
-// Initialize banner carousel when page loads
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initBannerCarousel);
-} else {
-    initBannerCarousel();
-}
-
-function initBannerCarousel() {
-    if (document.querySelector('.banner-slider')) {
-        showBannerSlides(bannerSlideIndex);
-        startBannerAutoSlide();
-        console.log('Banner carousel initialized with', document.getElementsByClassName("banner-slide").length, 'slides');
-    }
-}
-
-// Move banner slide by n positions
-window.moveBannerSlide = function(n) {
-    clearTimeout(bannerAutoTimer);
-    bannerSlideIndex += n;
-    showBannerSlides(bannerSlideIndex);
-    startBannerAutoSlide();
-}
-
-// Go to specific banner slide
-window.currentBannerSlide = function(n) {
-    clearTimeout(bannerAutoTimer);
-    bannerSlideIndex = n;
-    showBannerSlides(bannerSlideIndex);
-    startBannerAutoSlide();
-}
-
-// Show banner slides function
-function showBannerSlides(n) {
-    var i;
-    var slides = document.getElementsByClassName("banner-slide");
-    var dots = document.getElementsByClassName("banner-dot");
-    
-    if (slides.length === 0) return;
-    
-    if (n > slides.length) {
-        bannerSlideIndex = 1;
-    }
-    if (n < 1) {
-        bannerSlideIndex = slides.length;
-    }
-    
-    // Hide all slides
-    for (i = 0; i < slides.length; i++) {
-        slides[i].classList.remove('active');
-    }
-    
-    // Deactivate all dots
-    for (i = 0; i < dots.length; i++) {
-        dots[i].classList.remove('active');
-    }
-    
-    // Show current slide
-    slides[bannerSlideIndex - 1].classList.add('active');
-    
-    // Activate current dot
-    if (dots[bannerSlideIndex - 1]) {
-        dots[bannerSlideIndex - 1].classList.add('active');
-    }
-    
-    console.log('Showing banner slide', bannerSlideIndex, 'of', slides.length);
-}
-
-// Auto slide function - changes every 15 seconds
-function startBannerAutoSlide() {
-    clearTimeout(bannerAutoTimer);
-    bannerAutoTimer = setTimeout(function() {
-        bannerSlideIndex++;
-        showBannerSlides(bannerSlideIndex);
-        startBannerAutoSlide();
-    }, 15000); // Change image every 15 seconds
-}
-
-// Pause on hover
-setTimeout(function() {
-    var bannerCarousel = document.querySelector('.hero-banner-carousel');
-    if (bannerCarousel) {
-        bannerCarousel.addEventListener('mouseenter', function() {
-            clearTimeout(bannerAutoTimer);
-            console.log('Banner auto-slide paused');
-        });
-        
-        bannerCarousel.addEventListener('mouseleave', function() {
-            startBannerAutoSlide();
-            console.log('Banner auto-slide resumed');
-        });
-    }
-}, 100);
-
-console.log('Hero banner carousel script loaded');
 
