@@ -2956,6 +2956,9 @@ section {
     .nav-toggle {
         grid-column: 1;
         order: 1;
+        display: flex;
+        z-index: 1001;
+        position: relative;
     }
     
     .logo-container {
@@ -2992,6 +2995,7 @@ section {
         overflow-y: auto;
         grid-column: 1 / -1;
         justify-content: flex-start;
+        z-index: 999;
     }
     
     .nav-menu.active {

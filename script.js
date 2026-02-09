@@ -1,35 +1,42 @@
-// Navigation Toggle for Mobile
-const navToggle = document.getElementById('navToggle');
-const navMenu = document.getElementById('navMenu');
-const navLinks = document.querySelectorAll('.nav-link');
+// Navigation Toggle for Mobile - Ensure DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    const navLinks = document.querySelectorAll('.nav-link');
 
-if (navToggle) {
-    navToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        navToggle.classList.toggle('active');
-    });
-}
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            navMenu.classList.toggle('active');
+            navToggle.classList.toggle('active');
+            console.log('Nav toggle clicked, menu active:', navMenu.classList.contains('active'));
+        });
 
-// Close mobile menu when clicking on a link
-navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-        // Don't close menu if it's the products dropdown link
-        if (!link.parentElement.classList.contains('nav-dropdown') || window.innerWidth <= 768) {
-            navMenu.classList.remove('active');
-            if (navToggle) {
-                navToggle.classList.remove('active');
+        // Close mobile menu when clicking on a link
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Don't close menu if it's the products dropdown link
+                if (!link.parentElement.classList.contains('nav-dropdown') || window.innerWidth <= 768) {
+                    navMenu.classList.remove('active');
+                    if (navToggle) {
+                        navToggle.classList.remove('active');
+                    }
+                }
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navMenu && navToggle) {
+                if (!navMenu.contains(e.target) && !navToggle.contains(e.target) && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    navToggle.classList.remove('active');
+                }
             }
-        }
-    });
-});
-
-// Close mobile menu when clicking outside
-document.addEventListener('click', (e) => {
-    if (navMenu && navToggle) {
-        if (!navMenu.contains(e.target) && !navToggle.contains(e.target) && navMenu.classList.contains('active')) {
-            navMenu.classList.remove('active');
-            navToggle.classList.remove('active');
-        }
+        });
+    } else {
+        console.error('Navigation elements not found:', {navToggle, navMenu});
     }
 });
 
