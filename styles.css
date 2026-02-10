@@ -1593,80 +1593,6 @@ section {
     animation: fadeInUp 1s ease 0.4s both;
 }
 
-/* Hero Banner Section */
-.hero-banner-section {
-    width: 100%;
-    max-width: 1400px;
-    margin: 60px auto;
-    padding: 0 20px;
-    animation: fadeInUp 1s ease 0.6s both;
-}
-
-.hero-banner-container {
-    width: 100%;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(200, 16, 46, 0.15);
-    border: 3px solid var(--primary-red);
-    position: relative;
-    transition: var(--transition-smooth);
-}
-
-.hero-banner-container:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 25px 80px rgba(200, 16, 46, 0.25);
-}
-
-.hero-banner-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    max-height: 500px;
-}
-
-/* Responsive adjustments for hero banner */
-@media (max-width: 1024px) {
-    .hero-banner-section {
-        margin: 50px auto;
-    }
-    
-    .hero-banner-image {
-        max-height: 400px;
-    }
-}
-
-@media (max-width: 768px) {
-    .hero-banner-section {
-        margin: 40px auto;
-        padding: 0 15px;
-    }
-    
-    .hero-banner-container {
-        border-radius: 15px;
-        border-width: 2px;
-    }
-    
-    .hero-banner-image {
-        max-height: 300px;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-banner-section {
-        margin: 30px auto;
-        padding: 0 10px;
-    }
-    
-    .hero-banner-container {
-        border-radius: 10px;
-    }
-    
-    .hero-banner-image {
-        max-height: 200px;
-    }
-}
-
 /* Exclusive Partners Showcase */
 .exclusive-partners {
     margin-bottom: 80px;
@@ -3629,6 +3555,88 @@ section {
     margin-top: 20px;
     margin-bottom: 0;
     letter-spacing: 1px;
+}
+
+/* Hero Banner Section */
+.hero-banner-section {
+    width: 100%;
+    max-width: 100%;
+    margin: 40px 0 60px 0;
+    padding: 0;
+    animation: fadeInUp 1s ease 0.6s both;
+}
+
+.hero-banner-container {
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(200, 16, 46, 0.15);
+    border: 3px solid var(--primary-red);
+    position: relative;
+    transition: var(--transition-smooth);
+}
+
+.hero-banner-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 80px rgba(200, 16, 46, 0.25);
+}
+
+.hero-banner-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    max-height: 500px;
+}
+
+/* Responsive adjustments for hero banner */
+@media (max-width: 1024px) {
+    .hero-banner-section {
+        margin: 30px 0 50px 0;
+    }
+    
+    .hero-banner-image {
+        max-height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-banner-section {
+        margin: 20px 0 40px 0;
+        padding: 0;
+    }
+    
+    .hero-banner-container {
+        border-radius: 15px;
+        border-width: 2px;
+    }
+    
+    .hero-banner-image {
+        max-height: 300px;
+    }
+    
+    .hero-intro {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-banner-section {
+        margin: 15px 0 30px 0;
+        padding: 0;
+    }
+    
+    .hero-banner-container {
+        border-radius: 10px;
+    }
+    
+    .hero-banner-image {
+        max-height: 220px;
+    }
+    
+    .hero-intro {
+        margin-bottom: 15px;
+    }
 }
 
 /* Category Images for Oil and Filter */
