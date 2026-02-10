@@ -3585,18 +3585,13 @@ section {
     width: 100%;
     height: auto;
     display: block;
-    object-fit: cover;
-    max-height: 500px;
+    object-fit: contain;
 }
 
 /* Responsive adjustments for hero banner */
 @media (max-width: 1024px) {
     .hero-banner-section {
         margin: 30px 0 50px 0;
-    }
-    
-    .hero-banner-image {
-        max-height: 400px;
     }
 }
 
@@ -3609,10 +3604,6 @@ section {
     .hero-banner-container {
         border-radius: 15px;
         border-width: 2px;
-    }
-    
-    .hero-banner-image {
-        max-height: 300px;
     }
     
     .hero-intro {
@@ -3628,10 +3619,6 @@ section {
     
     .hero-banner-container {
         border-radius: 10px;
-    }
-    
-    .hero-banner-image {
-        max-height: 220px;
     }
     
     .hero-intro {
