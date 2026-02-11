@@ -3401,7 +3401,7 @@ section {
 }
 
 .social-icon:nth-child(3):hover {
-    background: #0077B5;
+    background: #000000;
     color: var(--white);
 }
 
@@ -3456,7 +3456,7 @@ section {
 }
 
 .footer-social-icon:nth-child(3):hover {
-    background: #0077B5;
+    background: #000000;
     color: var(--white);
 }
 
@@ -3505,7 +3505,7 @@ section {
 }
 
 .contact-social-link:nth-child(3):hover {
-    background: #0077B5;
+    background: #000000;
     color: var(--white);
 }
 
