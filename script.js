@@ -512,3 +512,14 @@ setTimeout(function() {
 
 console.log('Spare Parts Gallery script loaded');
 
+// Hero banner slideshow (15s interval, crossfade)
+const heroBannerSlides = document.querySelectorAll('.hero-banner-image');
+if (heroBannerSlides.length > 1) {
+    let heroCurrent = 0;
+    setInterval(() => {
+        heroBannerSlides[heroCurrent].classList.remove('slide-active');
+        heroCurrent = (heroCurrent + 1) % heroBannerSlides.length;
+        heroBannerSlides[heroCurrent].classList.add('slide-active');
+    }, 15000);
+}
+
